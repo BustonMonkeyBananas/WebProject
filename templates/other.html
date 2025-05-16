@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+{% if "фильмы" in arg %}
+<h2>Подборка смешных фильмов</h2>
+
+<h3>Поменяться местами (1983)</h3>
+<img src="/static/img/changeplace.jpg">
+
+<h3>1+1 (2011)</h3>
+<img src="/static/img/1+1.jpg">
+
+<h3>Маска (1994)</h3>
+<img src="/static/img/mask.jpg">
+{% endif %}
+
+{% if "песни" in arg %}
+<h2>Подборка смешных песен</h2>
+<audio controls>
+  <source src="/static/music/Bloodhound Gang - Fire Water Burn.mp3" type="audio/mp3">
+</audio>
+<audio controls>
+  <source src="/static/music/Мама шила мне штаны из березовой коры.mp3" type="audio/mp3">
+</audio>
+<audio controls>
+  <source src="/static/music/Смешные песни - Маленький апельсин.mp3" type="audio/mp3">
+</audio>
+{% endif %}
+
+{% if "новости" in arg %}
+<h2>Смешные новости</h2>
+<h3>В стадии разработки</h3>
+
+{% endif %}
+
+{% if "цены" in arg %}
+<h2>Смешные Цены в разных магазинах города</h2>
+<h3>В стадии разработки</h3>
+{% endif %}
+
+{% endblock %}

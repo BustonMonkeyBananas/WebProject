@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    {% for i in ["/static/img/memes/1.jpg", "/static/img/memes/2.jpg",
+"/static/img/memes/3.jpg", "/static/img/memes/4.jpg", "/static/img/memes/5.jpg",
+"/static/img/memes/6.jpg", "/static/img/memes/7.jpg", "/static/img/memes/8.jpg",
+"/static/img/memes/9.jpg", "/static/img/memes/10.jpg"] %}
+        <img src={{ i }}>
+    {% endfor %}
+{% endblock %}

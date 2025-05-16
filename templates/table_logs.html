@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+{% if current_user.is_authenticated %}
+<a class="btn btn-primary" href="/new_job">Добавить работу</a>
+{%endif%}
+<h3 align="center"> Worker logs</h3>
+{% for job in jobs %}
+<h4>Action #{{ job.id }}</h4>
+<table border="solid">
+    <tr>
+        <th>Title of activity</th>
+        <th>Team leader</th>
+        <th>Duration</th>
+        <th>Collabs</th>
+        <th>is finished</th>
+    </tr>
+    <tr>
+        <td>{{job.job}}</td>
+        <td>{{job.team_leader}}</td>
+        <td>{{job.work_size}}</td>
+        <td>{{job.collaborators}}</td>
+        {% if job.is_finished %}
+        <td>Is finished</td>
+        {% else %}
+        <td>Is not finished</td>
+        {%endif%}
+    </tr>
+</table>
+{% if current_user.is_authenticated %}
+<div>
+    <a class="btn btn-warning" href="/new_job/{{ job.id }}">Изменить</a>
+    <a class="btn btn-danger" href="/job_delete/{{ job.id }}">Удалить</a>
+</div>
+{%endif%}
+{%endfor%}
+{% endblock %}
