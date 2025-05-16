@@ -6,8 +6,7 @@ from forms.loginform import LoginForm
 from forms.login import LoginForm1
 from forms.register_form import RegisterForm
 from flask_login import LoginManager, login_user
-from forms.job_form import JobForm
-from flask import abort
+import sqlite3
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -70,12 +69,17 @@ def video():
 def other(arg):
     return render_template('other.html', arg=arg)
 
-@app.route('/load_joke', methods=['POST', 'GET'])
+name = 0
+@app.route('/load_meme', methods=['POST', 'GET'])
 def load_joke():
+    global name
     if request.method == 'GET':
-        return render_template('load_joke.html')
+        return render_template('load_meme.html')
     elif request.method == 'POST':
         photo = request.files['file']
+        with open(f'static/img/{name}.jpg', mode='wb') as f:
+            f.write(photo.read())
+            name += 1
         with open('static/img/img.jpg', mode='wb') as f:
             f.write(photo.read())
         return render_template('show_photo.html')
@@ -83,12 +87,11 @@ def load_joke():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
-
     if form.validate_on_submit():
         if form.password.data != form.password_1.data:
             return render_template('register.html', form=form, message='Пароли не совпали')
         sess = db_session.create_session()
-
+        print("hush")
         if sess.query(User).filter(User.email == form.email.data).first():
             return render_template('register.html',
                                    form=form, message='Такой пользователь есть!')
@@ -97,9 +100,7 @@ def register():
             name=form.name.data,
             surname=form.surname.data,
             age=form.age.data,
-            position=form.position.data,
-            speciality=form.speciality.data,
-            address=form.address.data,
+            iq=form.iq.data,
             email=form.email.data
         )
         user.set_password(form.password.data)
